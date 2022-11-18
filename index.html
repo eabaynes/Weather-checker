@@ -7,28 +7,31 @@
         <title>Weather Checker</title>
     </head>
 
-    <body class="bg-gradient-to-r from-cyan-800 to-blue-900">
-        <header>
-            <h1>Forecast Checker</h1>
-            <h2>Search for a city to see the upcoming forecast!</h2>
+    <body class="bg-gradient-to-r from-cyan-600 to-blue-900">
+        <header class="p-4">
+            <h1 class="text-4xl font-bold text-white">Forecast Checker</h1>
+            <h2 class="font-semibold text-white">Search for a city to see the upcoming forecast!</h2>
         </header>
 
-        <main>
+        <main class="flex">
+            <div class="flex flex-col">
+                <form class=" bg-sky-900 p-5 m-2 text-white rounded">
+                    <legend class="text-2xl">Search By City</legend>
+                    <div>
+                        <label class="text-yellow-400">City</label>
+                        <input 
+                        type="text" 
+                        id="city"/>
+                        <button class="bg-white p-1 border-2 border-solid rounded border-black  text-black" type="submit">Check Weather</button>
+                    </div>
+                </form>
+                <!-- favorites list, left side column, under search bar -->
+                <section class="flex flex-col bg-sky-900 text-white text-2xl rounded p-5 m-2">
+                    <h2>Check a City Again</h2>
+                </section>
+            </div>
             <!-- form to search city, left side column -->
-            <form>
-                <legend>Search By City</legend>
-                <div>
-                    <label>City</label>
-                    <input 
-                    type="text"
-                    id="city"/>
-                    <button type="submit">Check Weather</button>
-                </div>
-            </form>
-            <!-- favorites list, left side column, under search bar -->
-            <section>
-                <h2>Check a City Again</h2>
-            </section>
+
             <!-- display results for search, right side -->
             <section>
                 <h2>Showing Weather for: <span id="city-searched"></span></h2>
