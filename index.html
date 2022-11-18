@@ -15,15 +15,21 @@
 
         <main class="flex">
             <div class="flex flex-col">
-                <form class=" bg-sky-900 p-5 m-2 text-white rounded">
-                    <legend class="text-2xl">Search By City</legend>
-                    <div>
-                        <label class="text-yellow-400">City:</label>
+                <form class="grid grid-cols-1 bg-sky-900 p-5 m-2 text-white rounded">
+                    <legend class="text-2xl text-center">Search By City</legend>
+                    <div class="flex flex-col">
+                        <label class="text-yellow-400 m-1">City:</label>
                         <input 
                         class="p-1 text-black rounded"
                         type="text" 
                         id="city"/>
-                        <button class="bg-white p-1 border-2 border-solid rounded border-black  text-black" type="submit">Check Weather</button>
+                        <label class="text-yellow-400 m-1">State ID:</label>
+                        <input
+                        class="p-1 text-black rounded"
+                        type="text"
+                        id="state"/>
+                        <button class="bg-white p-1 border-2 border-solid rounded m-3 border-black  text-black" 
+                        type="submit">Check Weather</button>
                     </div>
                 </form>
                 <!-- favorites list, left side column, under search bar -->
