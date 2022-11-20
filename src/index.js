@@ -15,7 +15,20 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
         return [latitude, longitude]
     }
 
-    async function getWeather (getGeolocation) {
+    async function getCurrentWeather (getGeolocation) {
+        let location = await getGeolocation(cityName);
+        
+        let lat= location[0];
+        
+        let lon= location[1];
+        
+        let response = await fetch (`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
+        let data = await response.json();
+        console.log(data)
+
+    }
+
+    async function getForecast (getGeolocation) {
         let location = await getGeolocation(cityName);
         
         let lat= location[0];
@@ -25,10 +38,12 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
         let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
         let data = await response.json();
         console.log(data)
+        
     }
+
     getGeolocation(cityName)
-    .then(getWeather(getGeolocation))
-    .then()
+    .then(getCurrentWeather(getGeolocation))
+    .then(getForecast(getGeolocation))
     
 })
 
