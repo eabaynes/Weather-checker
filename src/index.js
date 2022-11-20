@@ -17,22 +17,22 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
 
     async function getWeather (getGeolocation) {
         let location = await getGeolocation(cityName);
-        console.log(location)
+        
         let lat= location[0];
-        console.log(lat)
+        
         let lon= location[1];
-        console.log(lon)
-        let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d43a4a832d05fcc903147c37afc29523`);
+        
+        let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
         let data = await response.json();
-        return data
+        console.log(data)
     }
-    getGeolocation(cityName).then(getWeather(getGeolocation))
+    getGeolocation(cityName)
+    .then(getWeather(getGeolocation))
+    .then()
     
 })
 
 
-// const longitude= geoResponse.lon
-// const latitude= geoResponse.lat
 
 // todo check if buttons can be made when pulling data from localstorage
 // todo currently 'cityName cannot be accessed. scope globally using IDs?
