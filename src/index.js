@@ -25,6 +25,14 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
         let response = await fetch (`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
         let data = await response.json();
         console.log(data)
+        let date= Date(data.dt)
+        console.log(date)
+        let temperature= data.main.temp
+        console.log(temperature)
+        let icon = data.weather.icon
+        console.log(icon)
+        let windSpeed= data.wind.speed
+        console.log(windSpeed)
 
     }
 
@@ -44,6 +52,7 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
     getGeolocation(cityName)
     .then(getCurrentWeather(getGeolocation))
     .then(getForecast(getGeolocation))
+    .then()
     
 })
 
@@ -52,15 +61,9 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
 // todo check if buttons can be made when pulling data from localstorage
 // todo currently 'cityName cannot be accessed. scope globally using IDs?
 // todo will that pull user input before the submit button has been
-// $('document').ready(function checkStorage(){
-//     localStorage.getItem(cityName).forEach( function makeButtons(){
-//         const thisCity= this.cityName
-//         console.log(thisCity)
-        // const savedCity = localStorage.getItem(cityName).city
-        // const savedState = localStorage.getItem
-        // $('section#history').append('<button class=""')
 
-//     }
-//     )
-// })
-// http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=d43a4a832d05fcc903147c37afc29523
+// iterate over local storage keys
+// for each key, create button with saved value being button text
+
+// add event listener for buttons
+// on button click, push value of button to form input and run formSubmit?
