@@ -1,32 +1,35 @@
-const OpenWeatherAPIkey= "d43a4a832d05fcc903147c37afc29523"
-// Handle API requests and prepare output to be sent out to other modules
-const baseURL = "https://api.openweathermap.org"
 
-document.querySelector('form').addEventListener('submit', function (event) {
+document.querySelector('form').addEventListener('submit',function formSubmit (event) {
     event.preventDefault();
-// variable from City input
+
     const cityName = event.target.city.value
-// variable from State ID input
-    const stateID = event.target.state.value
 
-// todo check API key error, try to get this to return a response
-   function getGeolocation (cityName,stateID) {
+    $('span#city-searched').text(cityName)
 
-        const geoResponse= fetch(`${baseURL}/geo/1.0/direct?q=${cityName},${stateID}&appid=${OpenWeatherAPIkey}`)
-        .then( function (response){
+    async function getGeolocation(cityName) {
         
-        return geoResponse.json();
-    })
-    .then(function storeInput(){
-        const saveValueObj= {
-            "city": cityName,
-            "state": stateID
-        }
-        localStorage.setItem(cityName, JSON.stringify(saveValueObj));
-    })
+        let response= await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=d43a4a832d05fcc903147c37afc29523`);
+        let data= await response.json();
+        let latitude = await data[0].lat
+        let longitude = await data[0].lon
+        return [latitude, longitude]
     }
 
+    async function getWeather (getGeolocation) {
+        let location = await getGeolocation(cityName);
+        console.log(location)
+        let lat= location[0];
+        console.log(lat)
+        let lon= location[1];
+        console.log(lon)
+        let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d43a4a832d05fcc903147c37afc29523`);
+        let data = await response.json();
+        return data
+    }
+    getGeolocation(cityName).then(getWeather(getGeolocation))
+    
 })
+
 
 // const longitude= geoResponse.lon
 // const latitude= geoResponse.lat
