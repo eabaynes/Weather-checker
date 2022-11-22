@@ -1,10 +1,17 @@
-
+// get h3 for current forecast- date
 let dateID = document.getElementById("today-date")
+// get li for current weather-temp
 let tempID = document.getElementById("today-temp")
 // icon will be more complicated- src to openweather needed
+// get li for current weater-wind
 let windID = document.getElementById("today-wind")
+// get li for current weather-humidity
 let humID = document.getElementById("today-hum")
 
+// pull all divs that will hold forecast by class name
+let forecastDivs = document.getElementsByClassName("bg-slate-700")
+
+// handle click event- retreive weather data and change html elements
 document.querySelector('form').addEventListener('submit',function formSubmit (event) {
     event.preventDefault();
 
@@ -60,14 +67,20 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
         
         let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
         let data = await response.json();
-        return data
+        let containsNoon = []
+        for (let i=0; i<data.list.length; i++) {
+
+            if (data.list[i].dt_txt.includes("12:00:00")){
+                (containsNoon.push(data.list))}
+        }
+        return containsNoon
         
     }
 
     async function changeCurrent (getCurrentWeather) {
         let data = await getCurrentWeather(getGeolocation);
 
-        let icon= data[2]
+        // let icon= data[2]
 
         dateID.innerText = data[0]
         tempID.innerText = "Temperature: " + data[1]
@@ -77,10 +90,16 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
 
     }
 
+    async function changeForecast(getForecast) {
+        let data = await getForecast(getGeolocation)
+        console.log(data)
+    }
+
     getGeolocation(cityName)
     .then(getCurrentWeather(getGeolocation))
     .then(getForecast(getGeolocation))
     .then(changeCurrent(getCurrentWeather))
+    .then(changeForecast(getForecast))
     
 })
 
