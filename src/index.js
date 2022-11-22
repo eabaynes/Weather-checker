@@ -1,4 +1,10 @@
 
+let dateID = document.getElementById("today-date")
+let tempID = document.getElementById("today-temp")
+// icon will be more complicated- src to openweather needed
+let windID = document.getElementById("today-wind")
+let humID = document.getElementById("today-hum")
+
 document.querySelector('form').addEventListener('submit',function formSubmit (event) {
     event.preventDefault();
 
@@ -24,15 +30,24 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
         
         let response = await fetch (`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
         let data = await response.json();
-        console.log(data)
-        let date= Date(data.dt)
-        console.log(date)
+
+        let unixStamp = data.dt
+
+        let milliseconds = unixStamp* 1000
+
+        let dateObject = new Date(milliseconds)
+
+        let date = dateObject.toLocaleDateString()
+
         let temperature= data.main.temp
-        console.log(temperature)
+
         let icon = data.weather.icon
-        console.log(icon)
+
         let windSpeed= data.wind.speed
-        console.log(windSpeed)
+
+        let humidity= data.main.humidity
+
+        return [date, temperature, icon, windSpeed,humidity]
 
     }
 
@@ -45,18 +60,29 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
         
         let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
         let data = await response.json();
-        console.log(data)
+        return data
         
+    }
+
+    async function changeCurrent (getCurrentWeather) {
+        let data = await getCurrentWeather(getGeolocation);
+
+        let icon= data[2]
+
+        dateID.innerText = data[0]
+        tempID.innerText = "Temperature: " + data[1]
+        windID.innerText = "Wind: " + data [3] +"mph"
+        humID.innerText = "Humidity: " + data[4] + "%"
+
+
     }
 
     getGeolocation(cityName)
     .then(getCurrentWeather(getGeolocation))
     .then(getForecast(getGeolocation))
-    .then()
+    .then(changeCurrent(getCurrentWeather))
     
 })
-
-
 
 // todo check if buttons can be made when pulling data from localstorage
 // todo currently 'cityName cannot be accessed. scope globally using IDs?
