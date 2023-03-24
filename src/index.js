@@ -104,7 +104,7 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
         
         let lon= location[1];
         
-        let response = await fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
+        let response = await fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
         let data = await response.json();
         let containsNoon = []
         // filter out all data that does not contain 12:00:00
