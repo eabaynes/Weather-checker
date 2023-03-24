@@ -10,7 +10,7 @@ let humID = document.getElementById("today-hum")
 // get li for icon
 let iconID = document.getElementById("today-icon")
 // src for icon
-const baseIconUrl = "http://openweathermap.org/img/w/"
+const baseIconUrl = "https://openweathermap.org/img/w/"
 // reusable .png for icon
 const iconExtension = ".png"
 // pull all divs that will hold forecast by class name
@@ -60,7 +60,7 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
     // function to get geolocation from openweather api
     async function getGeolocation(cityName) {
         
-        let response= await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=d43a4a832d05fcc903147c37afc29523`);
+        let response= await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=d43a4a832d05fcc903147c37afc29523`);
         let data= await response.json();
         let latitude = await data[0].lat
         let longitude = await data[0].lon
@@ -74,7 +74,7 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
         
         let lon= location[1];
         
-        let response = await fetch (`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
+        let response = await fetch (`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=d43a4a832d05fcc903147c37afc29523`);
         let data = await response.json();
 
         let unixStamp = data.dt
@@ -215,13 +215,3 @@ document.querySelector('form').addEventListener('submit',function formSubmit (ev
     .catch(err => console.log(err))
     
 })
-
-// todo check if buttons can be made when pulling data from localstorage
-// todo currently 'cityName cannot be accessed. scope globally using IDs?
-// todo will that pull user input before the submit button has been
-
-// iterate over local storage keys
-// for each key, create button with saved value being button text
-
-// add event listener for buttons
-// on button click, push value of button to form input and run formSubmit?
